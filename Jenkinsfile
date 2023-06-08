@@ -12,7 +12,7 @@ pipeline {
             steps {
                 cleanWs()
                 sh '''
-                    docker run \
+                    docker run --user $(id -u) -v ${WORKSPACE}:${WORKSPACE}:rw \
                     -e DASTARDLY_TARGET_URL=https://ginandjuice.shop/ \
                     -e DASTARDLY_OUTPUT_FILE=${WORKSPACE}/dastardly-report.xml \
                     public.ecr.aws/portswigger/dastardly:latest
