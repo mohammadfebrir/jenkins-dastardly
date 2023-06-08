@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-    DASTARDLY_TARGET_URL='http://3.1.83.160:3000/'
+    DASTARDLY_TARGET_URL='https://ginandjuice.shop'
     IMAGE_WITH_TAG='public.ecr.aws/portswigger/dastardly:latest'
     JUNIT_TEST_RESULTS_FILE='dastardly-report.xml'
   }
@@ -15,7 +15,7 @@ pipeline {
       steps {
         cleanWs()
         sh '''
-          docker run --rm --user -v ${WORKSPACE}:${WORKSPACE}:rw \
+          docker run --rm \
           -e DASTARDLY_TARGET_URL=${DASTARDLY_TARGET_URL} \
           -e DASTARDLY_OUTPUT_FILE=${WORKSPACE}/${JUNIT_TEST_RESULTS_FILE} \
           ${IMAGE_WITH_TAG}
